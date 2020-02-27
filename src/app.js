@@ -71,7 +71,7 @@ const App = () => {
           selectedContactList={selectedContactList}
         />
       </div>
-      <ContactForm  mode={contactFormMode}/>
+      <ContactForm mode={contactFormMode}/>
       <table>
         <thead>
           <tr className="head">
