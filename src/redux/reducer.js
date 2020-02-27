@@ -49,7 +49,7 @@ const reducer = (state = initialState, action) => {
     case DELETE_CONTACT:
       return {
         contactList: state.contactList.filter(contact => (
-          contact.id !== action.payload
+          action.payload.includes(contact.id) === false
         ))
       };
 
