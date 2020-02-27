@@ -6,7 +6,7 @@ export const addContact = (contact) => ({
 });
 
 export const deleteContact = (id) => ({
-  type: ADD_CONTACT,
+  type: DELETE_CONTACT,
   payload: id
 });
 
