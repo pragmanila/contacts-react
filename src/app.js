@@ -20,10 +20,19 @@ const Action = ({ addContact, deleteContact, selectedContactList }) => (
   </div>
 );
 
+const ContactForm = ({ mode }) => {
+  return (
+    <div className="contact-form">
+      {/* TODO: Create this form */}
+    </div>
+  );
+};
+
 const App = () => {
   const contactList = useSelector(state => state.contactList);
   const dispatch = useDispatch();
 
+  const [ contactFormMode, setContactFormMode ] = useState("hidden");
   const [ selectedContactList, setSelectedContactList ] = useState([]);
 
   const selectContact = useCallback(
@@ -55,13 +64,14 @@ const App = () => {
       <div className="header-container">
         <h2>Contacts list</h2>
         <Action
-          addContact={() => {}}
+          addContact={() => { setContactFormMode("add") }}
           deleteContact={() => {
             dispatch(deleteContact(selectedContactList));
           }}
           selectedContactList={selectedContactList}
         />
       </div>
+      <ContactForm  mode={contactFormMode}/>
       <table>
         <thead>
           <tr className="head">
