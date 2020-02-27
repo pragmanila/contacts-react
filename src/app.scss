@@ -48,11 +48,85 @@
 }
 
 .contact-container .header-container {
+  display: flex;
   padding: 15px;
   width: 100%;
 
   h2 {
     display: inline-block;
     margin: 0;
+  }
+
+  div.actions {
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+    margin-right: 0;
+
+    button {
+      border: none;
+      color: white;
+      cursor: pointer;
+      margin-left: 8px;
+      padding: 5px;
+
+      &.add {
+        background-color: #00a8ff;
+      }
+
+      &.delete {
+        background-color: #e84118;
+      }
+    }
+  }
+}
+
+input[type="checkbox"] {
+  height: 0;
+  position: absolute;
+  opacity: 0;
+
+  & + label {
+    cursor: pointer;
+    display: flex;
+    padding: 0;
+    position: relative;
+  }
+
+  & + label:before {
+    background-color: rgb(220, 220, 220);
+    content: '';
+    display: inline-block;
+    margin-right: 10px;
+    width: 15px;
+    height: 15px;
+    vertical-align: text-top;
+  }
+
+  &:focus + label:before {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+  }
+
+  // Box checked
+  &:checked + label:before {
+    background: #00a8ff;
+  }
+
+  &:checked + label:after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 7px;
+    background: white;
+    width: 2px;
+    height: 2px;
+    box-shadow:
+      2px 0 0 white,
+      4px 0 0 white,
+      4px -2px 0 white,
+      4px -4px 0 white,
+      4px -6px 0 white,
+      4px -8px 0 white;
+    transform: rotate(45deg);
   }
 }
