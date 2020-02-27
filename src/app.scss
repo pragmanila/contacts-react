@@ -62,22 +62,22 @@
     display: flex;
     margin-left: auto;
     margin-right: 0;
+  }
+}
 
-    button {
-      border: none;
-      color: white;
-      cursor: pointer;
-      margin-left: 8px;
-      padding: 5px;
+button {
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-left: 8px;
+  padding: 5px;
 
-      &.add {
-        background-color: #00a8ff;
-      }
+  &.add {
+    background-color: #00a8ff;
+  }
 
-      &.delete {
-        background-color: #e84118;
-      }
-    }
+  &.delete {
+    background-color: #e84118;
   }
 }
 
