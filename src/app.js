@@ -5,6 +5,21 @@ import { addContact, deleteContact, editContact } from "./redux/action";
 
 import "./app.scss";
 
+const Action = ({ addContact, deleteContact, selectedContactList }) => (
+  <div className="actions">
+    <button className="add" onClick={addContact}>Add a contact</button>
+    {
+      selectedContactList.length > 0 &&
+      <button className="delete" onClick={deleteContact}>
+        Delete { selectedContactList.length } contact{
+          selectedContactList.length > 1 &&
+          "s"
+        }
+      </button>
+    }
+  </div>
+);
+
 const App = () => {
   const contactList = useSelector(state => state.contactList);
   const dispatch = useDispatch();
@@ -32,6 +47,13 @@ const App = () => {
     <div className="contact-container">
       <div className="header-container">
         <h2>Contacts list</h2>
+        <Action
+          addContact={() => {}}
+          deleteContact={() => {
+            dispatch(deleteContact(selectedContactList));
+          }}
+          selectedContactList={selectedContactList}
+        />
       </div>
       <table>
         <thead>
