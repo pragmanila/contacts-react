@@ -1,3 +1,5 @@
+import { ADD_CONTACT, EDIT_CONTACT, DELETE_CONTACT } from "./action-type";
+
 const initialState = {
   contactList: [
     {
@@ -32,7 +34,40 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  return state;
+  switch(action.type) {
+    case ADD_CONTACT:
+      return {
+        contactList: [
+          ...state.contactList,
+          {
+            id: Math.random().toString(36).substring(4),
+            ...action.payload
+          }
+        ]
+      };
+
+    case DELETE_CONTACT:
+      return {
+        contactList: state.contactList.filter(contact => (
+          contact.id !== action.payload
+        ))
+      };
+
+    case EDIT_CONTACT:
+      return {
+        contactList: state.contactList.map(contact => (
+          contact.id === action.payload.id ?
+          {
+            ...contact,
+            ...action.payload
+          } :
+          contact
+        ))
+      }
+
+    default:
+      return state;
+  }
 };
 
 export default reducer;
