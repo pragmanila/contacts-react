@@ -37,6 +37,10 @@
 
       &:hover {
         background-color: rgb(248, 248, 248);
+
+        button.edit {
+          opacity: 1;
+        }
       }
     }
   }
@@ -78,6 +82,13 @@ button {
 
   &.delete {
     background-color: #e84118;
+  }
+
+  &.edit {
+    background-color: rgb(230, 230, 230);
+    color: black;
+    opacity: 0;
+    transition: opacity 0.1s;
   }
 }
 

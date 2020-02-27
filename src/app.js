@@ -107,7 +107,9 @@ const App = () => {
                 <td>{ contact.lastName }</td>
                 <td>{ contact.mobileNumber }</td>
                 <td>{ contact.emailAddress }</td>
-                <td></td>
+                <td>
+                  <button className="edit">Edit contact</button>
+                </td>
               </tr>
             ))
           }
