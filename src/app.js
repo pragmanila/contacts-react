@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addContact, deleteContact, editContact } from "./redux/action";
@@ -41,6 +41,13 @@ const App = () => {
       }
     },
     [selectedContactList]
+  );
+
+  useEffect(
+    ( ) => {
+      setSelectedContactList([]);
+    },
+    [contactList]
   );
 
   return (
