@@ -39,10 +39,7 @@ const reducer = (state = initialState, action) => {
       return {
         contactList: [
           ...state.contactList,
-          {
-            id: Math.random().toString(36).substring(4),
-            ...action.payload
-          }
+          action.payload
         ]
       };
 
