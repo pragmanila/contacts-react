@@ -51,31 +51,37 @@ const App = () => {
   );
 
   return (
-    <div className="contact-container">
-      <Header
-        addContact={ () => {
-          setContactFormMode("add");
-        } }
-        deleteContact={ () => {
-          dispatch(deleteContact(selectedContactList));
-        } }
-        selectedContactList={ selectedContactList }
-      />
-      <ContactForm
-        formWidth={ contactFormWidth }
-        mode={ contactFormMode }
-      />
+    <>
       {
         contactFormMode === "hidden" && (
-          <ContactList
-            ref={ ref }
-            contactList={ contactList }
-            selectContact={ selectContact }
-            selectedContactList={ selectedContactList }
+          <div className="contact-container">
+            <Header
+              addContact={ () => {
+                setContactFormMode("add");
+              } }
+              deleteContact={ () => {
+                dispatch(deleteContact(selectedContactList));
+              } }
+              selectedContactList={ selectedContactList }
+            />
+            <ContactList
+              ref={ ref }
+              contactList={ contactList }
+              selectContact={ selectContact }
+              selectedContactList={ selectedContactList }
+            />
+          </div>
+        )
+      }
+      {
+        contactFormMode !== "hidden" && (
+          <ContactForm
+            formWidth={ contactFormWidth }
+            mode={ contactFormMode }
           />
         )
       }
-    </div>
+    </>
   );
 }
 
