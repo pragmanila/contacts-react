@@ -4,6 +4,7 @@ import "./contact-form.scss";
 
 const ContactForm = ({
   contactList,
+  cancel,
   mode,
   formWidth: width,
   saveContact,
@@ -18,11 +19,6 @@ const ContactForm = ({
   setContactFormMode
 }) => {
   const [ formFieldValue, setFormFieldValue ] = useState({ ...selectedContact });
-
-  const cancel = useCallback((event) => {
-    event.preventDefault();
-    setContactFormMode("hidden");
-  }, []);
 
   const setFormField = (event) => {
     event.preventDefault();

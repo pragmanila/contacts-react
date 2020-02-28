@@ -19,6 +19,12 @@ const App = () => {
 
   const ref = useRef();
 
+  const hideContactForm = useCallback((event) => {
+    event.preventDefault();
+    setContactFormMode("hidden");
+    setSelectedContactList([]);
+  });
+
   const saveContact = useCallback((contact) => {
     switch(contactFormMode) {
       case "add":
@@ -101,6 +107,7 @@ const App = () => {
       {
         contactFormMode !== "hidden" && (
           <ContactForm
+            cancel={ hideContactForm }
             formWidth={ contactFormWidth }
             mode={ contactFormMode }
             saveContact={ saveContact }
