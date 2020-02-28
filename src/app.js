@@ -35,6 +35,7 @@ const App = () => {
     }
 
     setContactFormMode("hidden");
+    setSelectedContactList([]);
   }, [contactFormMode]);
 
   const selectContact = useCallback(
