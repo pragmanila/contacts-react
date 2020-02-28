@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./header.scss";
+
 const Header = ({ addContact, deleteContact, selectedContactList }) => (
 	<div className="header-container">
 		<h2>Contacts list</h2>
