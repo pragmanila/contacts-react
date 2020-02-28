@@ -15,7 +15,7 @@ button {
   margin-left: 8px;
   padding: 5px;
 
-  &.add {
+  &.add, &.save {
     background-color: #00a8ff;
   }
 
@@ -23,9 +23,12 @@ button {
     background-color: #e84118;
   }
 
-  &.edit {
+  &.edit, &.cancel {
     background-color: rgb(230, 230, 230);
     color: black;
+  }
+
+  &.edit {
     opacity: 0;
     transition: opacity 0.1s;
   }

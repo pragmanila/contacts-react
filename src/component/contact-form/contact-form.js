@@ -30,8 +30,6 @@ const ContactForm = ({ mode, formWidth: width, setContactFormMode }) => {
 
   const submit = useCallback((event) => {
     event.preventDefault();
-
-    console.log( formFieldValue )
   }, [formFieldValue]);
 
   return (
@@ -65,8 +63,18 @@ const ContactForm = ({ mode, formWidth: width, setContactFormMode }) => {
               ))
             }
             <div className="contact-form-action">
-              <button type="submit">Save</button>
-              <button onClick={ cancel }>Cancel</button>
+              <button
+                className="save"
+                type="submit"
+              >
+                Save
+              </button>
+              <button
+                className="cancel"
+                onClick={ cancel }
+              >
+                Cancel
+              </button>
             </div>
           </form>
         </div>
