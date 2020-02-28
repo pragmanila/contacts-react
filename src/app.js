@@ -19,6 +19,24 @@ const App = () => {
 
   const ref = useRef();
 
+  const saveContact = useCallback((contact) => {
+    switch(contactFormMode) {
+      case "add":
+        dispatch(addContact({
+          ...contact,
+          id: Math.random().toString(36).substring(4)
+        }));
+        break;
+      case "edit":
+        dispatch(editContact(contact));
+        break;
+      default:
+        break;
+    }
+
+    setContactFormMode("hidden");
+  }, [contactFormMode]);
+
   const selectContact = useCallback(
     (id) => {
       let isContactAlreadySelected = selectedContactList.filter(
@@ -76,16 +94,9 @@ const App = () => {
       {
         contactFormMode !== "hidden" && (
           <ContactForm
-            addContact={ (contact) => {
-              dispatch(addContact({
-                ...contact,
-                id: Math.random().toString(36).substring(4)
-              }));
-
-              setContactFormMode("hidden");
-            } }
             formWidth={ contactFormWidth }
             mode={ contactFormMode }
+            saveContact={ saveContact }
             setContactFormMode={ setContactFormMode }
           />
         )

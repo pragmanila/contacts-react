@@ -2,14 +2,22 @@ import React, { useCallback, useState } from "react";
 
 import "./contact-form.scss";
 
-const ContactForm = ({ addContact, mode, formWidth: width, setContactFormMode }) => {
-  const [ formFieldValue, setFormFieldValue ] = useState({
+const ContactForm = ({
+  contactList,
+  mode,
+  formWidth: width,
+  saveContact,
+  selectedContact = {
+    id: "",
     firstName: "",
     middleName: "",
     lastName: "",
     mobileNumber: "",
     emailAddress: ""
-  });
+  },
+  setContactFormMode
+}) => {
+  const [ formFieldValue, setFormFieldValue ] = useState({ ...selectedContact });
 
   const cancel = useCallback((event) => {
     event.preventDefault();
@@ -31,7 +39,7 @@ const ContactForm = ({ addContact, mode, formWidth: width, setContactFormMode })
   const submit = useCallback((event) => {
     event.preventDefault();
 
-    addContact(formFieldValue);
+    saveContact(formFieldValue);
   }, [formFieldValue]);
 
   return (
@@ -47,6 +55,7 @@ const ContactForm = ({ addContact, mode, formWidth: width, setContactFormMode })
           <form onSubmit={ submit }>
             {
               Object.keys(formFieldValue).map((key) => (
+                key !== "id" &&
                 <label key={ key }>
                   {
                     (
