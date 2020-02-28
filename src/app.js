@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Header from "./component/header/header";
 import ContactForm from "./component/contact-form/contact-form";
+import ContactList from "./component/contact-list/contact-list";
 
 import { addContact, deleteContact, editContact } from "./redux/action";
 
@@ -66,59 +67,12 @@ const App = () => {
       />
       {
         contactFormMode === "hidden" && (
-          <table ref={ref}>
-            <thead>
-              <tr className="head">
-                <th></th>
-                <th>
-                  FIRST NAME
-                </th>
-                <th>
-                  MIDDLE NAME
-                </th>
-                <th>
-                  LAST NAME
-                </th>
-                <th>
-                  MOBILE NUMBER
-                </th>
-                <th>
-                  EMAIL ADDRESS
-                </th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                contactList.map(contact => (
-                  <tr key={ contact.id }>
-                    <td>
-                      <input
-                        checked={ selectedContactList.includes( contact.id ) }
-                        onChange={ () => {}}
-                        type="checkbox"
-                      />
-                      <label onClick={ () => { selectContact(contact.id)}}></label>
-                    </td>
-                    <td>{ contact.firstName }</td>
-                    <td>
-                      {
-                        contact.middleName ?
-                        contact.middleName :
-                        <span style={{ opacity: 0.4 }}>N/A</span>
-                      }
-                    </td>
-                    <td>{ contact.lastName }</td>
-                    <td>{ contact.mobileNumber }</td>
-                    <td>{ contact.emailAddress }</td>
-                    <td>
-                      <button className="edit">Edit contact</button>
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
+          <ContactList
+            ref={ ref }
+            contactList={ contactList }
+            selectContact={ selectContact }
+            selectedContactList={ selectedContactList }
+          />
         )
       }
     </div>
