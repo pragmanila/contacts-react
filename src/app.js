@@ -1,85 +1,126 @@
-import React from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import Header from "./component/header/header";
+import ContactForm from "./component/contact-form/contact-form";
+import ContactList from "./component/contact-list/contact-list";
+
+import { addContact, deleteContact, editContact } from "./redux/action";
 
 import "./app.scss";
 
-const contactList = [
-  {
-    id: "quaxi71a",
-    firstName: "Aubrey",
-    lastName: "Terry",
-    mobileNumber: "09591736637",
-    emailAddress: "aubreyterry@gmail.com"
-  },
-  {
-    id: "cqc3tmbxc",
-    firstName: "Kara",
-    lastName: "Lawrence",
-    mobileNumber: "09693943668",
-    emailAddress: "karalawrence@gmail.com"
-  },
-  {
-    id: "6e3gtfyzs",
-    firstName: "Raquel",
-    lastName: "Wright",
-    mobileNumber: "09177324640",
-    emailAddress: "raquelwright@gmail.com"
-  },
-  {
-    id: "lpwx12ww",
-    firstName: "Lola",
-    lastName: "Garrett",
-    mobileNumber: "09453244072",
-    emailAddress: "lolagarrett@gmail.com"
-  },
-];
-
 const App = () => {
+  const contactList = useSelector(state => state.contactList);
+  const dispatch = useDispatch();
+
+  const [ contactFormMode, setContactFormMode ] = useState("hidden");
+  const [ selectedContactList, setSelectedContactList ] = useState([]);
+  const [ contactFormWidth, setContactFormWidth ] = useState(0);
+
+  const ref = useRef();
+
+  const hideContactForm = useCallback((event) => {
+    event.preventDefault();
+    setContactFormMode("hidden");
+    setSelectedContactList([]);
+  });
+
+  const saveContact = useCallback((contact) => {
+    switch(contactFormMode) {
+      case "add":
+        dispatch(addContact({
+          ...contact,
+          id: Math.random().toString(36).substring(4)
+        }));
+        break;
+      case "edit":
+        dispatch(editContact(contact));
+        break;
+      default:
+        break;
+    }
+
+    setContactFormMode("hidden");
+    setSelectedContactList([]);
+  }, [contactFormMode]);
+
+  const selectContact = useCallback(
+    (id) => {
+      let isContactAlreadySelected = selectedContactList.filter(
+        selectedContact => selectedContact === id
+      ).length > 0;
+
+      if(isContactAlreadySelected){
+        setSelectedContactList(selectedContactList.filter(
+          selectedContact => selectedContact !== id
+        ));
+      } else {
+        setSelectedContactList([...selectedContactList, id])
+      }
+    },
+    [selectedContactList]
+  );
+
+  const showEditContactForm = useCallback((id) => {
+    setSelectedContactList([id]);
+    setContactFormMode("edit");
+  }, [contactList]);
+
+  useEffect(
+    ( ) => {
+      setSelectedContactList([]);
+    },
+    [contactList]
+  );
+
+  useEffect(
+    () => {
+      setContactFormWidth(ref.current.offsetWidth)
+    },
+    [contactList]
+  );
+
   return (
-    <div className="contact-container">
-      <div className="header-container">
-        <h2>Contacts list</h2>
-      </div>
-      <table>
-        <thead>
-          <tr className="head">
-            <th>
-              FIRST NAME
-            </th>
-            <th>
-              MIDDLE NAME
-            </th>
-            <th>
-              LAST NAME
-            </th>
-            <th>
-              MOBILE NUMBER
-            </th>
-            <th>
-              EMAIL ADDRESS
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            contactList.map(contact => (
-              <tr key={ contact.id }>
-                <td>{ contact.firstName }</td>
-                <td>
-                  {
-                    contact.middleName ?
-                    contact.middleName :
-                    <span style={{ opacity: 0.4 }}>N/A</span>
-                  }
-                </td>
-                <td>{ contact.lastName }</td>
-                <td>{ contact.mobileNumber }</td>
-                <td>{ contact.emailAddress }</td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </div>
+    <>
+      {
+        contactFormMode === "hidden" && (
+          <div className="contact-container">
+            <Header
+              addContact={ () => {
+                setContactFormMode("add");
+              } }
+              deleteContact={ () => {
+                dispatch(deleteContact(selectedContactList));
+              } }
+              selectedContactList={ selectedContactList }
+            />
+            <ContactList
+              ref={ ref }
+              contactList={ contactList }
+              selectContact={ selectContact }
+              selectedContactList={ selectedContactList }
+              showEditContactForm={ showEditContactForm }
+            />
+          </div>
+        )
+      }
+      {
+        contactFormMode !== "hidden" && (
+          <ContactForm
+            cancel={ hideContactForm }
+            formWidth={ contactFormWidth }
+            mode={ contactFormMode }
+            saveContact={ saveContact }
+            selectedContact={
+              contactList.filter(contact => (
+                contact.id === selectedContactList[0]
+              ))[0]
+            }
+            setContactFormMode={ setContactFormMode }
+          />
+        )
+      }
+    </>
   );
 }
 
