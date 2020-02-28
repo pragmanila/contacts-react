@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./contact-form.scss";
+
 const ContactForm = ({ mode, formWidth: width }) => {
   return (
     mode !== "hidden" && (

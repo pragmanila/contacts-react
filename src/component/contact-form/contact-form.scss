@@ -1,0 +1,28 @@
+.contact-form {
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+
+	form {
+	  display: inline;
+	}
+
+	label {
+	  color: rgb(100, 100, 100);
+	  display: flex;
+	  flex-direction: column;
+	  font-size: 14px;
+	  font-weight: 600;
+	  max-width: 200px;
+
+	  &:not(:first-child) {
+		margin-top: 10px;
+	  }
+
+	  input {
+		font-size: 14px;
+		margin-top: 5px;
+		padding: 5px;
+	  }
+	}
+}
