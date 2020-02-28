@@ -1,5 +1,7 @@
 import React, { forwardRef } from "react";
 
+import "./contact-list.scss";
+
 const ContactList = forwardRef((
 	{
     contactList,
