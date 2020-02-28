@@ -32,4 +32,10 @@
 		padding: 5px;
 	  }
 	}
+
+	div.contact-form-action {
+		display: flex;
+		flex-direction: row-reverse;
+		margin-top: 10px;
+	}
 }

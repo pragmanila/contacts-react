@@ -78,6 +78,7 @@ const App = () => {
           <ContactForm
             formWidth={ contactFormWidth }
             mode={ contactFormMode }
+            setContactFormMode={ setContactFormMode }
           />
         )
       }

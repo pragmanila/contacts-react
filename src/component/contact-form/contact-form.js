@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import "./contact-form.scss";
 
-const ContactForm = ({ mode, formWidth: width }) => {
+const ContactForm = ({ mode, formWidth: width, setContactFormMode }) => {
+  const cancel = useCallback((event) => {
+    event.preventDefault();
+    setContactFormMode("hidden");
+  }, []);
+
+  const submit = useCallback((event) => {
+    event.preventDefault();
+  }, []);
+
   return (
     mode !== "hidden" && (
       <div
@@ -13,7 +22,7 @@ const ContactForm = ({ mode, formWidth: width }) => {
           <div className="header-container">
             <h2>Add contact</h2>
           </div>
-          <form onSubmit={() => {}}>
+          <form onSubmit={ submit }>
           <label>
             First name
             <input type="text"/>
@@ -34,6 +43,10 @@ const ContactForm = ({ mode, formWidth: width }) => {
             Email address
             <input type="text"/>
           </label>
+            <div className="contact-form-action">
+              <button type="submit">Save</button>
+              <button onClick={ cancel }>Cancel</button>
+            </div>
           </form>
         </div>
       </div>
