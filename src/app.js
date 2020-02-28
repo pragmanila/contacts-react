@@ -14,7 +14,7 @@ const App = () => {
 
   const [ contactFormMode, setContactFormMode ] = useState("hidden");
   const [ selectedContactList, setSelectedContactList ] = useState([]);
-  const [ formWidth, setFormWidth ] = useState(0);
+  const [ contactFormWidth, setContactFormWidth ] = useState(0);
 
   const ref = useRef();
 
@@ -44,7 +44,7 @@ const App = () => {
 
   useEffect(
     () => {
-      setFormWidth(ref.current.offsetWidth)
+      setContactFormWidth(ref.current.offsetWidth)
     },
     [contactList]
   );
@@ -62,7 +62,7 @@ const App = () => {
         />
       </div>
       <ContactForm
-        formWidth={formWidth}
+        formWidth={contactFormWidth}
         mode={contactFormMode}
       />
       {
