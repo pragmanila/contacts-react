@@ -1,16 +1,38 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 
 import "./contact-form.scss";
 
 const ContactForm = ({ mode, formWidth: width, setContactFormMode }) => {
+  const [ formFieldValue, setFormFieldValue ] = useState({
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    mobileNumber: "",
+    emailAddress: ""
+  });
+
   const cancel = useCallback((event) => {
     event.preventDefault();
     setContactFormMode("hidden");
   }, []);
 
+  const setFormField = (event) => {
+    event.preventDefault();
+
+    const fieldName = event.target.dataset.fieldname;
+    const value = event.target.value;
+
+    setFormFieldValue({
+      ...formFieldValue,
+      [fieldName]: value
+    })
+  };
+
   const submit = useCallback((event) => {
     event.preventDefault();
-  }, []);
+
+    console.log( formFieldValue )
+  }, [formFieldValue]);
 
   return (
     mode !== "hidden" && (
@@ -23,26 +45,25 @@ const ContactForm = ({ mode, formWidth: width, setContactFormMode }) => {
             <h2>Add contact</h2>
           </div>
           <form onSubmit={ submit }>
-          <label>
-            First name
-            <input type="text"/>
-          </label>
-          <label>
-            Middle name
-            <input type="text"/>
-          </label>
-          <label>
-            Last name
-            <input type="text"/>
-          </label>
-          <label>
-            Mobile number
-            <input type="text"/>
-          </label>
-          <label>
-            Email address
-            <input type="text"/>
-          </label>
+            {
+              Object.keys(formFieldValue).map((key) => (
+                <label key={ key }>
+                  {
+                    (
+                      ( ) => {
+                        const label = key.replace( /([A-Z])/g, " $1" );
+                        return label.charAt(0).toUpperCase() + label.slice(1);
+                      }
+                    )( )
+                  }
+                  <input
+                    data-fieldname={ key }
+                    onChange={ setFormField }
+                    type="text"
+                  />
+                </label>
+              ))
+            }
             <div className="contact-form-action">
               <button type="submit">Save</button>
               <button onClick={ cancel }>Cancel</button>
