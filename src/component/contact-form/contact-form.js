@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 
 import "./contact-form.scss";
 
-const ContactForm = ({ mode, formWidth: width, setContactFormMode }) => {
+const ContactForm = ({ addContact, mode, formWidth: width, setContactFormMode }) => {
   const [ formFieldValue, setFormFieldValue ] = useState({
     firstName: "",
     middleName: "",
@@ -30,6 +30,8 @@ const ContactForm = ({ mode, formWidth: width, setContactFormMode }) => {
 
   const submit = useCallback((event) => {
     event.preventDefault();
+
+    addContact(formFieldValue);
   }, [formFieldValue]);
 
   return (

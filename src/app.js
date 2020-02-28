@@ -76,6 +76,14 @@ const App = () => {
       {
         contactFormMode !== "hidden" && (
           <ContactForm
+            addContact={ (contact) => {
+              dispatch(addContact({
+                ...contact,
+                id: Math.random().toString(36).substring(4)
+              }));
+
+              setContactFormMode("hidden");
+            } }
             formWidth={ contactFormWidth }
             mode={ contactFormMode }
             setContactFormMode={ setContactFormMode }
