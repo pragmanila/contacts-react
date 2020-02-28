@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Action from "./component/action/action";
+import Header from "./component/header/header";
 import ContactForm from "./component/contact-form/contact-form";
 
 import { addContact, deleteContact, editContact } from "./redux/action";
@@ -51,16 +51,13 @@ const App = () => {
 
   return (
     <div className="contact-container">
-      <div className="header-container">
-        <h2>Contacts list</h2>
-        <Action
-          addContact={() => { setContactFormMode("add") }}
-          deleteContact={() => {
-            dispatch(deleteContact(selectedContactList));
-          }}
-          selectedContactList={selectedContactList}
-        />
-      </div>
+      <Header
+        addContact={() => { setContactFormMode("add") }}
+        deleteContact={() => {
+          dispatch(deleteContact(selectedContactList));
+        }}
+        selectedContactList={selectedContactList}
+      />
       <ContactForm
         formWidth={contactFormWidth}
         mode={contactFormMode}
