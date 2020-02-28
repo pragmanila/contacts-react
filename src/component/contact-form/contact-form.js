@@ -69,6 +69,7 @@ const ContactForm = ({
                     data-fieldname={ key }
                     onChange={ setFormField }
                     type="text"
+                    value={ formFieldValue[key] }
                   />
                 </label>
               ))

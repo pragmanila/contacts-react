@@ -55,6 +55,11 @@ const App = () => {
     [selectedContactList]
   );
 
+  const showEditContactForm = useCallback((id) => {
+    setSelectedContactList([id]);
+    setContactFormMode("edit");
+  }, [contactList]);
+
   useEffect(
     ( ) => {
       setSelectedContactList([]);
@@ -88,6 +93,7 @@ const App = () => {
               contactList={ contactList }
               selectContact={ selectContact }
               selectedContactList={ selectedContactList }
+              showEditContactForm={ showEditContactForm }
             />
           </div>
         )
@@ -98,6 +104,11 @@ const App = () => {
             formWidth={ contactFormWidth }
             mode={ contactFormMode }
             saveContact={ saveContact }
+            selectedContact={
+              contactList.filter(contact => (
+                contact.id === selectedContactList[0]
+              ))[0]
+            }
             setContactFormMode={ setContactFormMode }
           />
         )

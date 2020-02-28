@@ -6,7 +6,8 @@ const ContactList = forwardRef((
 	{
     contactList,
     selectContact,
-    selectedContactList
+    selectedContactList,
+    showEditContactForm
   },
   ref
 ) => (
@@ -55,7 +56,12 @@ const ContactList = forwardRef((
             <td>{ contact.mobileNumber }</td>
             <td>{ contact.emailAddress }</td>
             <td>
-              <button className="edit">Edit contact</button>
+              <button
+                className="edit"
+                onClick={ () => { showEditContactForm(contact.id) } }
+              >
+                Edit contact
+              </button>
             </td>
           </tr>
         ))
