@@ -1,55 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import Action from "./component/action/action";
+import ContactForm from "./component/contact-form/contact-form";
+
 import { addContact, deleteContact, editContact } from "./redux/action";
 
 import "./app.scss";
-
-const Action = ({ addContact, deleteContact, selectedContactList }) => (
-  <div className="actions">
-    <button className="add" onClick={addContact}>Add a contact</button>
-    {
-      selectedContactList.length > 0 &&
-      <button className="delete" onClick={deleteContact}>
-        Delete { selectedContactList.length } contact{
-          selectedContactList.length > 1 &&
-          "s"
-        }
-      </button>
-    }
-  </div>
-);
-
-const ContactForm = ({ mode, formWidth: width }) => {
-  return (
-    mode !== "hidden" && (
-      <div className="contact-form" style={{ width }}>
-        <form onSubmit={() => {}}>
-          <label>
-            First name
-            <input type="text"/>
-          </label>
-          <label>
-            Middle name
-            <input type="text"/>
-          </label>
-          <label>
-            Last name
-            <input type="text"/>
-          </label>
-          <label>
-            Mobile number
-            <input type="text"/>
-          </label>
-          <label>
-            Email address
-            <input type="text"/>
-          </label>
-        </form>
-      </div>
-    )
-  );
-};
 
 const App = () => {
   const contactList = useSelector(state => state.contactList);
