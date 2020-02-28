@@ -30,6 +30,22 @@
       font-size: 14px;
       margin-top: 5px;
       padding: 5px;
+
+      &.valid {
+        border: solid 1px green;
+
+        & + span {
+          color: green;
+        }
+      }
+
+      &.not-valid {
+        border: solid 1px red;
+
+        & + span {
+          color: red;
+        }
+      }
 	  }
 	}
 
