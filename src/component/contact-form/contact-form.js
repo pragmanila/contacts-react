@@ -3,7 +3,6 @@ import React, { useCallback, useState } from "react";
 import "./contact-form.scss";
 
 const ContactForm = ({
-  contactList,
   cancel,
   mode,
   formWidth: width,
