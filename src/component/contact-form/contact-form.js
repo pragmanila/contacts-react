@@ -1,6 +1,29 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import cc from "classcat";
 
 import "./contact-form.scss";
+
+const validateField = (fieldName, value) => {
+  switch(fieldName) {
+    case "firstName":
+    case "middleName":
+    case "lastName":
+      return (
+        /[a-zA-Z]{2,}/.test(value) ||
+        `Enter valid ${ fieldName.replace( /([A-Z])/g, " $1" ).toLowerCase() }.`
+      );
+    case "emailAddress":
+      return (
+        /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(value) ||
+        "Enter valid email address."
+      );
+    case "mobileNumber":
+      return (
+        /^[0-9]{11,11}$/.test(value) ||
+        "Enter 11-digit mobile number."
+      );
+  }
+};
 
 const ContactForm = ({
   cancel,
@@ -18,6 +41,7 @@ const ContactForm = ({
   setContactFormMode
 }) => {
   const [ formFieldValue, setFormFieldValue ] = useState({ ...selectedContact });
+  const [ isFormValid, setIsFormValid ] = useState(mode === "edit" ? true : false);
 
   const setFormField = (event) => {
     event.preventDefault();
@@ -25,16 +49,48 @@ const ContactForm = ({
     const fieldName = event.target.dataset.fieldname;
     const value = event.target.value;
 
+    const validationResult = validateField(fieldName, value);
+
+    const isFieldValid = (
+      validationResult === true ||
+      fieldName === "middleName" && value.length === 0
+    );
+    const validationMessage = (
+      isFieldValid ?
+      "" :
+      (
+        typeof validationResult === "string" ? validationResult : ""
+      )
+    );
+
+    setIsFormValid(isFieldValid);
+
     setFormFieldValue({
       ...formFieldValue,
-      [fieldName]: value
+      [fieldName]: {
+        isFieldValid,
+        validationMessage,
+        value
+      }
     })
   };
 
   const submit = useCallback((event) => {
     event.preventDefault();
 
-    saveContact(formFieldValue);
+    if(isFormValid){
+      const contact = {};
+
+      Object.keys(formFieldValue).forEach((key) => {
+        contact[key] = (
+          typeof formFieldValue[key] === "string" ?
+          formFieldValue[key] :
+          (formFieldValue[key].value || "")
+        );
+      });
+
+      saveContact(contact);
+    }
   }, [formFieldValue]);
 
   return (
@@ -61,11 +117,23 @@ const ContactForm = ({
                     )( )
                   }
                   <input
+                    className={ cc({
+                      valid: formFieldValue[key].isFieldValid === true,
+                      "not-valid": formFieldValue[key].isFieldValid === false
+                    }) }
                     data-fieldname={ key }
                     onChange={ setFormField }
                     type="text"
-                    value={ formFieldValue[key] }
+                    value={
+                      typeof formFieldValue[key] === "string" ?
+                      formFieldValue[key] :
+                      ( formFieldValue[key].value || "" )
+                    }
                   />
+                  {
+                    (formFieldValue[key].validationMessage || "").length > 0 &&
+                    <span>{ formFieldValue[key].validationMessage }</span>
+                  }
                 </label>
               ))
             }
