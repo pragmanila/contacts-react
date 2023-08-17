@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;700;900&display=swap');
+
+body {
+  font-family: 'Roboto Slab', serif !important;
+  background: #dbd7d7 !important;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.contact-form {
+  width: 100%;
+  max-width: 25rem; /* Set a maximum width for the form */
+  padding: 1.25rem;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 1.5em;
+  box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+}
+
+.firstName, .middleName, .lastName , .mobileNo, .email {
+  background: #F0F0F0 !important;
+  text-align: center;
+}
+
+.firstName:hover,.middleName:hover, .lastName:hover, .mobileNo:hover, .email:hover{
+  background-color: #ffffff !important;
+}
+
+/* Remove placeholder text when input is focused */
+.contact-form input:focus::placeholder {
+  color: transparent;
+}
