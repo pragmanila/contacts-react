@@ -23,6 +23,9 @@ export default function CreateUser() {
     //an object with methods to redirect the user.
     const navigate = useNavigate();
 
+    // State to determine where submit is enabled or not
+    const [isActive, setIsActive] = useState(false);
+
     function addContact(e) {
 
         // Prevents the page redirection via form submission
@@ -37,6 +40,16 @@ export default function CreateUser() {
         navigate("/");
 
     }
+
+    useEffect(() => {
+
+        if ((firstName !== "" && middleName !== "" && lastName !== "" && email !== "" && mobileNo !== "") && (mobileNo.length === 11)) {
+
+            setIsActive(true)
+        } else {
+            setIsActive(false)
+        }
+    }, [firstName, middleName, lastName, email, mobileNo,]);
 
     return (
         <Container>
@@ -80,7 +93,10 @@ export default function CreateUser() {
                                 value={mobileNo} onChange={e => { setMobileNo(e.target.value) }}
                             />
                         </Form.Group>
-                        <Button variant="primary" type="submit" id="submitBtn"> Submit </Button>
+                        {
+                            isActive ? <Button variant="primary" type="submit" id="submitBtn"> Submit </Button>
+                                : <Button variant="danger" type="submit" id="submitBtn" disabled> Submit </Button>
+                        }
                     </Form>
                 </div>
                 <Link to="/" className="btn btn-link"> Back </Link>

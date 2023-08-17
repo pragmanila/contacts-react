@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Button, Form } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -27,6 +27,9 @@ export default function Update() {
 
     //an object with methods to redirect the user.
     const navigate = useNavigate();
+
+    // State to determine where submit is enabled or not
+    const [isActive, setIsActive] = useState(false);
 
     function handleUpdateUser(e) {
         // Prevents the page redirection via form submission
@@ -77,17 +80,6 @@ export default function Update() {
                             />
                         </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="First Name">
-                            <Form.Label>First Name</Form.Label>
-                            <Form.Control
-                                name="firstName"
-                                className="firstName"
-                                type="text"
-                                value={sfirstName}
-                                onChange={(e) => setFirstName(e.target.value)}
-                            />
-                        </Form.Group>
-
                         <Form.Group className="mb-3" controlId="Last Name">
                             <Form.Label>Last Name</Form.Label>
                             <Form.Control
@@ -120,7 +112,6 @@ export default function Update() {
                                 onChange={(e) => setMobileNo(e.target.value)}
                             />
                         </Form.Group>
-
                         <Button variant="primary" type="submit" id="submitBtn">
                             Submit
                         </Button>
